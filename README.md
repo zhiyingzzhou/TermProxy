@@ -18,8 +18,13 @@ A universal terminal proxy plugin installer for Bash, Zsh, Oh-My-Zsh, Bash-it, w
 
 ### 1. Download and run the installer
 
+> **Note:**  
+> Do **not** use `curl ... | bash` to run this script directly, as interactive input will not work.  
+> Please download the script first, then execute it.
+
 ```bash
-curl -fsSL https://github.com/zhiyingzzhou/TermProxy/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/zhiyingzzhou/TermProxy/main/install.sh -o install.sh
+bash install.sh
 ```
 
 Or clone and run locally:
@@ -75,6 +80,9 @@ Then use the following commands in your terminal:
 2. Delete the plugin file from `~/.bash_plugins/` or `~/.zsh_plugins/` or Oh-My-Zsh custom plugins directory
 
 ## FAQ
+
+**Q: Can I use `curl ... | bash` to install?**  
+A: No. Interactive input will not work in this mode. Please download the script first, then run it.
 
 **Q: Does it support Windows?**  
 A: No, only Linux/macOS terminals are supported.

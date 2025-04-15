@@ -16,8 +16,13 @@
 
 ### 1. 下载并运行安装脚本
 
+> **注意：**  
+> **不要**使用 `curl ... | bash` 方式直接运行本脚本，否则交互输入会失效。  
+> 请先下载脚本到本地，再执行。
+
 ```bash
-curl -fsSL https://github.com/zhiyingzzhou/TermProxy/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/zhiyingzzhou/TermProxy/main/install.sh -o install.sh
+bash install.sh
 ```
 
 或本地克隆后运行：
@@ -73,6 +78,9 @@ source ~/.zshrc   # 或 source ~/.bashrc
 2. 删除 `~/.bash_plugins/`、`~/.zsh_plugins/` 或 Oh-My-Zsh custom plugins 目录下的插件文件
 
 ## 常见问题
+
+**Q: 可以用 `curl ... | bash` 方式安装吗？**  
+A: 不可以。此方式下交互输入会失效。请先下载脚本到本地再运行。
 
 **Q: 支持 Windows 吗？**  
 A: 暂不支持，仅适用于 Linux/macOS 终端。
