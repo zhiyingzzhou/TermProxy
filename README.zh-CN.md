@@ -16,9 +16,27 @@
 
 ### 1. 下载并运行安装脚本
 
+> **国内用户推荐使用 Gitee 镜像仓库，下载速度更快。**  
 > **注意：**  
 > **不要**使用 `curl ... | bash` 方式直接运行本脚本，否则交互输入会失效。  
 > 请先下载脚本到本地，再执行。
+
+#### Gitee 镜像（推荐国内用户）
+
+```bash
+curl -fsSL https://gitee.com/zhiyingzhou/TermProxy/raw/main/install.sh -o install.sh
+bash install.sh
+```
+
+或本地克隆后运行：
+
+```bash
+git clone https://gitee.com/zhiyingzhou/TermProxy.git
+cd TermProxy
+bash install.sh
+```
+
+#### GitHub 源仓库
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/zhiyingzzhou/TermProxy/main/install.sh -o install.sh

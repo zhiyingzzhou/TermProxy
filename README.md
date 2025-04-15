@@ -18,9 +18,27 @@ A universal terminal proxy plugin installer for Bash, Zsh, Oh-My-Zsh, Bash-it, w
 
 ### 1. Download and run the installer
 
+> **For users in mainland China, it is recommended to use the Gitee mirror repository for faster download.**  
 > **Note:**  
 > Do **not** use `curl ... | bash` to run this script directly, as interactive input will not work.  
 > Please download the script first, then execute it.
+
+#### Gitee Mirror (Recommended for China Mainland Users)
+
+```bash
+curl -fsSL https://gitee.com/zhiyingzhou/TermProxy/raw/main/install.sh -o install.sh
+bash install.sh
+```
+
+Or clone and run locally:
+
+```bash
+git clone https://gitee.com/zhiyingzhou/TermProxy.git
+cd TermProxy
+bash install.sh
+```
+
+#### GitHub Source Repository
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/zhiyingzzhou/TermProxy/main/install.sh -o install.sh
