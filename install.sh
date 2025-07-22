@@ -87,10 +87,10 @@ PROXY_PROTOCOL="$protocol"
 proxy_on() {
     export http_proxy="http://\$PROXY_HOST:\$PROXY_PORT"
     export https_proxy="http://\$PROXY_HOST:\$PROXY_PORT"
-    export all_proxy="$protocol://\$PROXY_HOST:\$PROXY_PORT"
+    export all_proxy="\$PROXY_PROTOCOL://\$PROXY_HOST:\$PROXY_PORT"
     export HTTP_PROXY="http://\$PROXY_HOST:\$PROXY_PORT"
     export HTTPS_PROXY="http://\$PROXY_HOST:\$PROXY_PORT"
-    export ALL_PROXY="$protocol://\$PROXY_HOST:\$PROXY_PORT"
+    export ALL_PROXY="\$PROXY_PROTOCOL://\$PROXY_HOST:\$PROXY_PORT"
     echo "✅ 代理已开启！"
     proxy_status
 }
@@ -117,6 +117,65 @@ proxy_status() {
         fi
     else
         echo "  ❌ 未设置代理"
+    fi
+}
+
+# 查看代理配置
+proxy_config() {
+    echo "当前代理配置:"
+    echo "  代理主机: \$PROXY_HOST"
+    echo "  代理端口: \$PROXY_PORT"
+    echo "  代理协议: \$PROXY_PROTOCOL"
+    echo ""
+    echo "配置文件位置: $(dirname "\${BASH_SOURCE[0]}")"
+}
+
+# 修改代理配置
+proxy_edit() {
+    local old_host="\$PROXY_HOST"
+    local old_port="\$PROXY_PORT"
+    local old_protocol="\$PROXY_PROTOCOL"
+    local config_file="\${BASH_SOURCE[0]}"
+    
+    echo "修改代理配置 (留空保持不变):"
+    read -p "代理主机 [\$PROXY_HOST]: " new_host
+    read -p "代理端口 [\$PROXY_PORT]: " new_port
+    echo "代理协议选择:"
+    echo "1. http"
+    echo "2. socks5"
+    read -p "请选择代理协议 [当前: \$PROXY_PROTOCOL]: " protocol_choice
+    
+    # 设置默认值
+    new_host="\${new_host:-\$PROXY_HOST}"
+    new_port="\${new_port:-\$PROXY_PORT}"
+    
+    # 处理协议选择
+    case "\$protocol_choice" in
+        1) new_protocol="http" ;;
+        2) new_protocol="socks5" ;;
+        *) new_protocol="\$PROXY_PROTOCOL" ;;
+    esac
+    
+    # 更新配置
+    if [ "\$new_host" != "\$old_host" ] || [ "\$new_port" != "\$old_port" ] || [ "\$new_protocol" != "\$old_protocol" ]; then
+        sed -i.bak "s/PROXY_HOST=\"\$old_host\"/PROXY_HOST=\"\$new_host\"/g" "\$config_file"
+        sed -i.bak "s/PROXY_PORT=\"\$old_port\"/PROXY_PORT=\"\$new_port\"/g" "\$config_file"
+        sed -i.bak "s/PROXY_PROTOCOL=\"\$old_protocol\"/PROXY_PROTOCOL=\"\$new_protocol\"/g" "\$config_file"
+        
+        # macOS 在使用 sed -i 时会创建备份文件，需要删除
+        if [ -f "\${config_file}.bak" ]; then
+            rm "\${config_file}.bak"
+        fi
+        
+        # 重新加载更新后的值
+        PROXY_HOST="\$new_host"
+        PROXY_PORT="\$new_port"
+        PROXY_PROTOCOL="\$new_protocol"
+        
+        echo "✅ 配置已更新！"
+        proxy_config
+    else
+        echo "配置未变更"
     fi
 }
 EOF

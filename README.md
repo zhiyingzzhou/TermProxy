@@ -78,6 +78,8 @@ Then use the following commands in your terminal:
 - `proxy_on`      # Enable proxy
 - `proxy_off`     # Disable proxy
 - `proxy_status`  # Show current proxy status and test connectivity
+- `proxy_config`  # View current proxy configuration
+- `proxy_edit`    # Modify proxy configuration (host, port, protocol)
 
 ## Parameters
 
@@ -106,7 +108,7 @@ A: No. Interactive input will not work in this mode. Please download the script 
 A: No, only Linux/macOS terminals are supported.
 
 **Q: How to change proxy settings after installation?**  
-A: Edit the plugin file (`~/.bash_plugins/proxy.plugin.bash` or `~/.zsh_plugins/proxy.plugin.zsh`) and reload your shell config.
+A: Use the `proxy_edit` command to modify proxy settings interactively, or edit the plugin file manually (`~/.bash_plugins/proxy.plugin.bash` or `~/.zsh_plugins/proxy.plugin.zsh`).
 
 **Q: How to use with fish shell?**  
 A: Manually copy `/tmp/proxy.plugin.sh` content to your fish config.

@@ -76,6 +76,8 @@ source ~/.zshrc   # 或 source ~/.bashrc
 - `proxy_on`      # 开启代理
 - `proxy_off`     # 关闭代理
 - `proxy_status`  # 查看代理状态并测试连通性
+- `proxy_config`  # 查看当前代理配置信息
+- `proxy_edit`    # 修改代理配置（主机、端口、协议）
 
 ## 参数说明
 
@@ -104,7 +106,7 @@ A: 不可以。此方式下交互输入会失效。请先下载脚本到本地�
 A: 暂不支持，仅适用于 Linux/macOS 终端。
 
 **Q: 安装后如何修改代理设置？**  
-A: 编辑插件文件（如 `~/.bash_plugins/proxy.plugin.bash` 或 `~/.zsh_plugins/proxy.plugin.zsh`），然后重新加载 shell 配置。
+A: 使用 `proxy_edit` 命令可以交互式修改代理设置，或者手动编辑插件文件（如 `~/.bash_plugins/proxy.plugin.bash` 或 `~/.zsh_plugins/proxy.plugin.zsh`）。
 
 **Q: fish shell 如何使用？**  
 A: 手动将 `/tmp/proxy.plugin.sh` 内容复制到 fish 配置文件中。
