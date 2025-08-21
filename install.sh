@@ -603,9 +603,9 @@ generate_plugin_file() {
 # ==========================================
 
 # 代理配置信息
-readonly PROXY_HOST="$host"
-readonly PROXY_PORT="$port"
-readonly PROXY_PROTOCOL="$protocol"
+PROXY_HOST="$host"
+PROXY_PORT="$port"
+PROXY_PROTOCOL="$protocol"
 
 # 环境变量设置函数
 _set_proxy_env() {
@@ -653,7 +653,7 @@ proxy_status() {
         if command -v curl >/dev/null 2>&1; then
             if curl -s --connect-timeout 5 --max-time 10 https://www.google.com >/dev/null 2>&1; then
             echo "  ✅ 代理工作正常，可以访问 Google"
-            else
+        else
                 echo "  ⚠️  无法访问 Google，请检查代理设置"
             fi
         else
@@ -757,15 +757,15 @@ proxy_edit() {
             # 创建备份
             cp "\$config_file" "\${config_file}.backup.\$(date +%Y%m%d_%H%M%S)" 2>/dev/null || true
             
-            # 使用更安全的方式更新配置文件
-            if command -v sed >/dev/null 2>&1; then
-                sed -i.tmp \\
-                    -e "s/readonly PROXY_HOST=\"[^\"]*\"/readonly PROXY_HOST=\"\$new_host\"/g" \\
-                    -e "s/readonly PROXY_PORT=\"[^\"]*\"/readonly PROXY_PORT=\"\$new_port\"/g" \\
-                    -e "s/readonly PROXY_PROTOCOL=\"[^\"]*\"/readonly PROXY_PROTOCOL=\"\$new_protocol\"/g" \\
-                    "\$config_file" 2>/dev/null || true
-                rm -f "\${config_file}.tmp" 2>/dev/null || true
-            fi
+                         # 使用更安全的方式更新配置文件
+             if command -v sed >/dev/null 2>&1; then
+                 sed -i.tmp \\
+                     -e "s/PROXY_HOST=\"[^\"]*\"/PROXY_HOST=\"\$new_host\"/g" \\
+                     -e "s/PROXY_PORT=\"[^\"]*\"/PROXY_PORT=\"\$new_port\"/g" \\
+                     -e "s/PROXY_PROTOCOL=\"[^\"]*\"/PROXY_PROTOCOL=\"\$new_protocol\"/g" \\
+                     "\$config_file" 2>/dev/null || true
+                 rm -f "\${config_file}.tmp" 2>/dev/null || true
+             fi
         fi
         
         echo "✅ 配置已更新！"
@@ -1238,10 +1238,10 @@ perform_uninstall() {
     log "INFO" "开始卸载代理插件..."
 
 case "$CURRENT_SHELL" in
-        bash)
+    bash)
             uninstall_bash_plugin
-            ;;
-        zsh)
+        ;;
+    zsh)
             uninstall_zsh_plugin
             ;;
         *)
@@ -1307,16 +1307,16 @@ perform_installation() {
             ;;
         zsh)
             install_zsh_plugin || return 1
-            ;;
-        fish)
+        ;;
+    fish)
             handle_fish_shell
             return 0
-            ;;
-        *)
+        ;;
+    *)
             log "WARN" "未识别的 Shell: $CURRENT_SHELL"
             echo -e "${YELLOW}📋 请选择安装方式:${NC}"
-            echo "1) 安装为 Bash 插件"
-            echo "2) 安装为 Zsh 插件"
+        echo "1) 安装为 Bash 插件"
+        echo "2) 安装为 Zsh 插件"
             echo "3) 显示 Fish Shell 配置指南"
             echo "4) 取消安装"
             
@@ -1342,11 +1342,11 @@ perform_installation() {
                         ;;
                     *)
                         echo -e "${RED}请输入有效的选项 (1-4)${NC}"
-                        ;;
-                esac
+                ;;
+        esac
             done
-            ;;
-    esac
+        ;;
+esac
 }
 
 # 获取Shell特定的激活说明
